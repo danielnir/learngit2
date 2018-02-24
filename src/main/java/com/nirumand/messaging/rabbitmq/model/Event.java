@@ -48,6 +48,7 @@ public class Event implements Serializable {
 	public String toString() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
+			log.debug("To String method is called");
 			return objectMapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {
 			log.error("Can not convert to String",e);
