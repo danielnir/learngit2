@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: producer
+  rabbitmq:
+    host: 172.17.0.2
+    port: 5673
+    username: guest
+    password: guest
+
+---
+spring:
+  profiles: dev
+
+event:
+  queues:
+    system: telegram
+  exchange:
+    name: myex
+    key: telegram
+---
+spring:
+  profiles: producer
+
+event:
+  exchange:
+    name: myex
+    key: telegram
+---
+spring:
+  profiles: consumer
+event:
+  queues:
+      system: telegram

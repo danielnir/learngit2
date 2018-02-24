@@ -1,0 +1,15 @@
+Scenario: 1 Producer sending 1 Miliseconds, 5 consumer
+
+Step 1: Prepare envirnment
+- docker network create msg
+- docker run -d  --hostname rabbit --name rabbit -p 8000:15672 -p 5673:5672 rabbitmq:3-management
+- docker network connect msg rabbit
+
+
+Step 2: create producers and consumers
+
+docker run  -d --net msg --name producer1 -e "env=producer" -e "host=172.19.0.2" -e "port=5672" messaging:v1
+docker run  -d --net msg --name consumer1 -e "env=consumer" -e "host=172.19.0.3" -e "port=5672"  messaging:v1
+docker run  -d --net msg --name consumer2 -e "env=consumer" -e "host=172.19.0.3" -e "port=5672"  messaging:v1
+docker run  -d --net msg --name consumer3 -e "env=consumer" -e "host=172.19.0.3" -e "port=5672"  messaging:v1
+docker run  -d --net msg --name consumer4 -e "env=consumer" -e "host=172.19.0.3" -e "port=5672"  messaging:v1

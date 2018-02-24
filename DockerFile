@@ -1,0 +1,9 @@
+FROM openjdk:8-jdk-alpine
+
+RUN mkdir -p /app
+
+RUN mkdir -p /var/log
+
+COPY ./target/messaging-rabbitmq.jar /app/messaging-rabbitmq.jar
+
+ENTRYPOINT exec java $JAVA_OPTS -Dspring.profiles.active=$env  -Dspring.rabbitmq.host=$host -Dspring.rabbitmq.port=$port -jar /app/messaging-rabbitmq.jar

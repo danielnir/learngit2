@@ -1,0 +1,13 @@
+version: '3'
+services:
+  producer:
+    container_name: producer1    
+    image: messaging:v1
+    environment:
+	- env=producer
+	- host=172.17.0.2
+	- port=5672
+    deploy:
+          replicas: 1
+          restart_policy:
+            condition: always
